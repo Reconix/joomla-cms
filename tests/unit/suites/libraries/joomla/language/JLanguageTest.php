@@ -2,7 +2,7 @@
 /**
  * @package    Joomla.UnitTest
  *
- * @copyright  Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
+ * @copyright  Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -281,7 +281,7 @@ class JLanguageTest extends \PHPUnit\Framework\TestCase
 		);
 
 		$this->assertEquals(
-			array('1'),
+			array('ONE', '1'),
 			$this->object->getPluralSuffixes(1),
 			'Line: ' . __LINE__
 		);

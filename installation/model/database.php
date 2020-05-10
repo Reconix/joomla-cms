@@ -3,7 +3,7 @@
  * @package     Joomla.Installation
  * @subpackage  Model
  *
- * @copyright   Copyright (C) 2005 - 2019 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -626,7 +626,7 @@ class InstallationModelDatabase extends JModelBase
 		{
 			$query->clear()
 				->update($db->quoteName('#__utf8_conversion'))
-				->set($db->quoteName('converted') . ' = ' . ($db->hasUTF8mb4Support() ? 2 : 1));
+				->set($db->quoteName('converted') . ' = ' . ($db->hasUTF8mb4Support() ? 4 : 3));
 			$db->setQuery($query);
 
 			try
