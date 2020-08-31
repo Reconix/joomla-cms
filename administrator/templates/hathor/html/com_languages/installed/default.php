@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.core');
+JHtmlBehavior::core();
 // Add specific helper files for html generation
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
 $user     = JFactory::getUser();

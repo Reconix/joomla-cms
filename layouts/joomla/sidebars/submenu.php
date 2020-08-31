@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 JHtml::_('jquery.framework');
-JHtml::_('behavior.core');
+JHtmlBehavior::core();
 
 JFactory::getDocument()->addScriptDeclaration('
 	jQuery(document).ready(function($)
