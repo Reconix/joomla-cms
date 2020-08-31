@@ -10,6 +10,7 @@ namespace Joomla\CMS\Form;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\CMS\Form\Factory\LegacyFormFactory;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
