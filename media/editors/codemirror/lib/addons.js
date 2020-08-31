@@ -404,9 +404,9 @@
       cm.removeKeyMap("autoCloseTags");
     if (!val) return;
     var map = {name: "autoCloseTags"};
-    if (typeof val != "object" || val.whenClosing !== false)
+    if (typeof val != "object" || val.whenClosing)
       map["'/'"] = function(cm) { return autoCloseSlash(cm); };
-    if (typeof val != "object" || val.whenOpening !== false)
+    if (typeof val != "object" || val.whenOpening)
       map["'>'"] = function(cm) { return autoCloseGT(cm); };
     cm.addKeyMap(map);
   });
@@ -667,24 +667,16 @@
   }
 
   CodeMirror.defineOption("matchBrackets", false, function(cm, val, old) {
-    function clear(cm) {
+    if (old && old != CodeMirror.Init) {
+      cm.off("cursorActivity", doMatchBrackets);
       if (cm.state.matchBrackets && cm.state.matchBrackets.currentlyHighlighted) {
         cm.state.matchBrackets.currentlyHighlighted();
         cm.state.matchBrackets.currentlyHighlighted = null;
       }
     }
-
-    if (old && old != CodeMirror.Init) {
-      cm.off("cursorActivity", doMatchBrackets);
-      cm.off("focus", doMatchBrackets)
-      cm.off("blur", clear)
-      clear(cm);
-    }
     if (val) {
       cm.state.matchBrackets = typeof val == "object" ? val : {};
       cm.on("cursorActivity", doMatchBrackets);
-      cm.on("focus", doMatchBrackets)
-      cm.on("blur", clear)
     }
   });
 
@@ -1404,8 +1396,8 @@ CodeMirror.registerHelper("fold", "include", function(cm, start) {
     var countDown = n;
     return function() { if (--countDown == 0) cont(); };
   }
-  function ensureDeps(mode, cont, options) {
-    var modeObj = CodeMirror.modes[mode], deps = modeObj && modeObj.dependencies;
+  function ensureDeps(mode, cont) {
+    var deps = CodeMirror.modes[mode].dependencies;
     if (!deps) return cont();
     var missing = [];
     for (var i = 0; i < deps.length; ++i) {
@@ -1415,18 +1407,16 @@ CodeMirror.registerHelper("fold", "include", function(cm, start) {
     if (!missing.length) return cont();
     var split = splitCallback(cont, missing.length);
     for (var i = 0; i < missing.length; ++i)
-      CodeMirror.requireMode(missing[i], split, options);
+      CodeMirror.requireMode(missing[i], split);
   }
 
-  CodeMirror.requireMode = function(mode, cont, options) {
+  CodeMirror.requireMode = function(mode, cont) {
     if (typeof mode != "string") mode = mode.name;
-    if (CodeMirror.modes.hasOwnProperty(mode)) return ensureDeps(mode, cont, options);
+    if (CodeMirror.modes.hasOwnProperty(mode)) return ensureDeps(mode, cont);
     if (loading.hasOwnProperty(mode)) return loading[mode].push(cont);
 
-    var file = options && options.path ? options.path(mode) : CodeMirror.modeURL.replace(/%N/g, mode);
-    if (options && options.loadMode) {
-      options.loadMode(file, function() { ensureDeps(mode, cont, options) })
-    } else if (env == "plain") {
+    var file = CodeMirror.modeURL.replace(/%N/g, mode);
+    if (env == "plain") {
       var script = document.createElement("script");
       script.src = file;
       var others = document.getElementsByTagName("script")[0];
@@ -1434,7 +1424,7 @@ CodeMirror.registerHelper("fold", "include", function(cm, start) {
       CodeMirror.on(script, "load", function() {
         ensureDeps(mode, function() {
           for (var i = 0; i < list.length; ++i) list[i]();
-        }, options);
+        });
       });
       others.parentNode.insertBefore(script, others);
     } else if (env == "cjs") {
@@ -1445,11 +1435,11 @@ CodeMirror.registerHelper("fold", "include", function(cm, start) {
     }
   };
 
-  CodeMirror.autoLoadMode = function(instance, mode, options) {
+  CodeMirror.autoLoadMode = function(instance, mode) {
     if (!CodeMirror.modes.hasOwnProperty(mode))
       CodeMirror.requireMode(mode, function() {
         instance.setOption("mode", instance.getOption("mode"));
-      }, options);
+      });
   };
 });
 
@@ -2051,9 +2041,7 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
     var state = cm.state.matchHighlighter;
     cm.addOverlay(state.overlay = makeOverlay(query, hasBoundary, style));
     if (state.options.annotateScrollbar && cm.showMatchesOnScrollbar) {
-      var searchFor = hasBoundary ? new RegExp((/\w/.test(query.charAt(0)) ? "\\b" : "") +
-                                               query.replace(/[\\\[.+*?(){|^$]/g, "\\$&") +
-                                               (/\w/.test(query.charAt(query.length - 1)) ? "\\b" : "")) : query;
+      var searchFor = hasBoundary ? new RegExp("\\b" + query.replace(/[\\\[.+*?(){|^$]/g, "\\$&") + "\\b") : query;
       state.matchesonscroll = cm.showMatchesOnScrollbar(searchFor, false,
         {className: "CodeMirror-selection-highlight-scrollbar"});
     }
@@ -2369,7 +2357,7 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
       var result = this.matches(reverse, this.doc.clipPos(reverse ? this.pos.from : this.pos.to))
 
       // Implements weird auto-growing behavior on null-matches for
-      // backwards-compatibility with the vim code (unfortunately)
+      // backwards-compatiblity with the vim code (unfortunately)
       while (result && CodeMirror.cmpPos(result.from, result.to) == 0) {
         if (reverse) {
           if (result.from.ch) result.from = Pos(result.from.line, result.from.ch - 1)
@@ -2643,7 +2631,7 @@ CodeMirror.multiplexingMode = function(outer /*, others */) {
     {name: "SystemVerilog", mime: "text/x-systemverilog", mode: "verilog", ext: ["v", "sv", "svh"]},
     {name: "Tcl", mime: "text/x-tcl", mode: "tcl", ext: ["tcl"]},
     {name: "Textile", mime: "text/x-textile", mode: "textile", ext: ["textile"]},
-    {name: "TiddlyWiki", mime: "text/x-tiddlywiki", mode: "tiddlywiki"},
+    {name: "TiddlyWiki ", mime: "text/x-tiddlywiki", mode: "tiddlywiki"},
     {name: "Tiki wiki", mime: "text/tiki", mode: "tiki"},
     {name: "TOML", mime: "text/x-toml", mode: "toml", ext: ["toml"]},
     {name: "Tornado", mime: "text/x-tornado", mode: "tornado"},

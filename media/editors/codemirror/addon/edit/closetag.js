@@ -40,9 +40,9 @@
       cm.removeKeyMap("autoCloseTags");
     if (!val) return;
     var map = {name: "autoCloseTags"};
-    if (typeof val != "object" || val.whenClosing !== false)
+    if (typeof val != "object" || val.whenClosing)
       map["'/'"] = function(cm) { return autoCloseSlash(cm); };
-    if (typeof val != "object" || val.whenOpening !== false)
+    if (typeof val != "object" || val.whenOpening)
       map["'>'"] = function(cm) { return autoCloseGT(cm); };
     cm.addKeyMap(map);
   });

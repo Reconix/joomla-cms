@@ -34,9 +34,9 @@
     "switch": {},
     "case": { noEndTag: true, reduceIndent: true},
     "default": { noEndTag: true, reduceIndent: true},
-    "foreach": { variableScope: true, soyState: "for-loop" },
+    "foreach": { variableScope: true, soyState: "var-def" },
     "ifempty": { noEndTag: true, reduceIndent: true},
-    "for": { variableScope: true, soyState: "for-loop" },
+    "for": { variableScope: true, soyState: "var-def" },
     "call": { soyState: "templ-ref" },
     "param": { soyState: "param-ref"},
     "print": { noEndTag: true },
@@ -129,7 +129,6 @@
       var match;
       if (stream.match(/[[]/)) {
         state.soyState.push("list-literal");
-        state.context = new Context(state.context, "list-literal", state.variables);
         state.lookupVariables = false;
         return null;
       } else if (stream.match(/map\b/)) {
@@ -257,11 +256,6 @@
               // Otherwise
               return "variable";
             }
-            if (match = stream.match(/^\$([\w]+)/)) {
-              state.soyState.pop();
-              return ref(state.variables, match[1], !state.lookupVariables);
-            }
-
             stream.next();
             return null;
 
@@ -306,13 +300,10 @@
             } else if (peekChar == "[") {
               state.soyState.push('param-type-record');
               return null;
-            } else if (peekChar == "(") {
-              state.soyState.push('param-type-template');
-              return null;
-            } else if (peekChar == "<") {
-              state.soyState.push('param-type-parameter');
-              return null;
             } else if (match = stream.match(/^([\w]+|[?])/)) {
+              if (match[0] == "map" || match[0] == "list") {
+                state.soyState.push('param-type-map-list');
+              }
               return "type";
             }
             stream.next();
@@ -331,7 +322,8 @@
             stream.next();
             return null;
 
-          case "param-type-parameter":
+          case "param-type-map-list":
+            var peekChar = stream.peek();
             if (stream.match(/^[>]/)) {
               state.soyState.pop();
               return null;
@@ -343,36 +335,11 @@
             stream.next();
             return null;
 
-          case "param-type-template":
-            if (stream.match(/[>]/)) {
-              state.soyState.pop();
-              state.soyState.push('param-type');
-              return null;
-            }
-            if (stream.match(/^\w+/)) {
-              state.soyState.push('param-type');
-              return "def";
-            }
-            stream.next();
-            return null;
-
           case "var-def":
             if (match = stream.match(/^\$([\w]+)/)) {
               state.variables = prepend(state.variables, match[1]);
               state.soyState.pop();
               return "def";
-            }
-            stream.next();
-            return null;
-
-          case "for-loop":
-            if (stream.match(/\bin\b/)) {
-              state.soyState.pop();
-              return "keyword";
-            }
-            if (stream.peek() == "$") {
-              state.soyState.push('var-def');
-              return null;
             }
             stream.next();
             return null;
@@ -407,12 +374,13 @@
             if (stream.match(/\]/)) {
               state.soyState.pop();
               state.lookupVariables = true;
-              popcontext(state);
               return null;
             }
-            if (stream.match(/\bfor\b/)) {
+            if (stream.match(/for\b/)) {
+              state.soyState.push("var-def")
+              return "keyword";
+            } else if (stream.match(/in\b/)) {
               state.lookupVariables = true;
-              state.soyState.push('for-loop');
               return "keyword";
             }
             return expression(stream, state);
@@ -434,26 +402,6 @@
               return null;
             }
             return expression(stream, state);
-
-          case "import":
-            if (stream.eat(";")) {
-              state.soyState.pop();
-              state.indent -= 2 * config.indentUnit;
-              return null;
-            }
-            if (stream.match(/\w+(?=\s+as)/)) {
-              return "variable";
-            }
-            if (match = stream.match(/\w+/)) {
-              return /(from|as)/.test(match[0]) ? "keyword" : "def";
-            }
-            if (match = stream.match(/^["']/)) {
-              state.soyState.push("string");
-              state.quoteKind = match[0];
-              return "string";
-            }
-            stream.next();
-            return null;
 
           case "tag":
             var endTag = state.tag[0] == "/";
@@ -551,10 +499,6 @@
           state.tag = "print";
           state.indent += 2 * config.indentUnit;
           state.soyState.push("tag");
-          return "keyword";
-        } else if (!state.context && stream.match(/\bimport\b/)) {
-          state.soyState.push("import");
-          state.indent += 2 * config.indentUnit;
           return "keyword";
         }
 
