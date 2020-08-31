@@ -169,7 +169,7 @@ class JApplicationCmsTest extends TestCaseDatabase
 	}
 
 	/**
-	 * Tests the JApplicationCms::__construct method with dependency injection.
+	 * Tests the JApplicationCms::__construct method with dependancy injection.
 	 *
 	 * @return  void
 	 *

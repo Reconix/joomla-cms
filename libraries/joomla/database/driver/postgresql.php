@@ -375,7 +375,7 @@ class JDatabaseDriverPostgresql extends JDatabaseDriver
 	/**
 	 * Shows the table CREATE statement that creates the given tables.
 	 *
-	 * This is unsupported by PostgreSQL.
+	 * This is unsuported by PostgreSQL.
 	 *
 	 * @param   mixed  $tables  A table name or a list of table names.
 	 *

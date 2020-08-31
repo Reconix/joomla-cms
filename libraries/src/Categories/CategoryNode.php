@@ -196,7 +196,7 @@ class CategoryNode extends \JObject
 	public $modified_time = null;
 
 	/**
-	 * Number of times the category has been viewed
+	 * Nmber of times the category has been viewed
 	 *
 	 * @var    integer
 	 * @since  1.6

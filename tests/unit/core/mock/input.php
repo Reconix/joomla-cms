@@ -29,7 +29,7 @@ class TestMockInput
 	private static $test;
 
 	/**
-	 * Class constructor.
+	 * Class contructor.
 	 *
 	 * @param   PHPUnit_Framework_TestCase  $test  A test class.
 	 *

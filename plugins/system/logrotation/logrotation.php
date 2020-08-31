@@ -103,7 +103,7 @@ class PlgSystemLogrotation extends JPlugin
 		}
 		catch (Exception $exc)
 		{
-			// If we failed to execute
+			// If we failed to execite
 			$db->unlockTables();
 			$result = false;
 		}

@@ -316,7 +316,7 @@ XML;
 	}
 
 	/**
-	 * Provides test data for element type - failures
+	 * Provides test data for element type - faliures
 	 *
 	 * @return array
 	 *
@@ -669,7 +669,7 @@ XML;
 	}
 
 	/**
-	 * Provides test data for element type - failures
+	 * Provides test data for element type - faliures
 	 *
 	 * @return array
 	 *
@@ -885,7 +885,7 @@ XML;
 	}
 
 	/**
-	 * Provides test data for full element type - failures
+	 * Provides test data for full element type - faliures
 	 *
 	 * @return array
 	 *
