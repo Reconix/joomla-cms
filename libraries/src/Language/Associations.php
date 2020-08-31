@@ -13,7 +13,7 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\Registry\Registry;
 
 /**
- * Utility class for associations in multilang
+ * Utitlity class for associations in multilang
  *
  * @since  3.1
  */

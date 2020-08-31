@@ -4,9 +4,7 @@
  * @subpackage  model
  * @copyright   Copyright (C) 2010-2016 Nicholas K. Dionysopoulos / Akeeba Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @note        This file has been modified by the Joomla! Project and no longer reflects the original work of its author.
  */
-
 // Protect from unauthorized access
 defined('FOF_INCLUDED') or die;
 
@@ -206,7 +204,7 @@ class FOFModel extends FOFUtilsObject
 	protected $_behaviorParams = array();
 
 	/**
-	 * Returns a new model object. Unless overridden by the $config array, it will
+	 * Returns a new model object. Unless overriden by the $config array, it will
 	 * try to automatically populate its state from the request variables.
 	 *
 	 * @param   string  $type    Model type, e.g. 'Items'
@@ -2686,7 +2684,7 @@ class FOFModel extends FOFUtilsObject
 	}
 
 	/**
-	 * This method can be overridden to automatically do something with the
+	 * This method can be overriden to automatically do something with the
 	 * list results array. You are supposed to modify the list which was passed
 	 * in the parameters; DO NOT return a new array!
 	 *
@@ -2716,7 +2714,7 @@ class FOFModel extends FOFUtilsObject
 		}
 		catch (Exception $e)
 		{
-			// Oops, an exception occurred!
+			// Oops, an exception occured!
 			$this->setError($e->getMessage());
 		}
 	}
@@ -2770,7 +2768,7 @@ class FOFModel extends FOFUtilsObject
 		}
 		catch (Exception $e)
 		{
-			// Oops, an exception occurred!
+			// Oops, an exception occured!
 			$this->setError($e->getMessage());
 
 			return false;
@@ -2810,7 +2808,7 @@ class FOFModel extends FOFUtilsObject
 		}
 		catch (Exception $e)
 		{
-			// Oops, an exception occurred!
+			// Oops, an exception occured!
 			$this->setError($e->getMessage());
 
 			return false;
@@ -2860,7 +2858,7 @@ class FOFModel extends FOFUtilsObject
 		}
 		catch (Exception $e)
 		{
-			// Oops, an exception occurred!
+			// Oops, an exception occured!
 			$this->setError($e->getMessage());
 
 			return false;
@@ -2897,7 +2895,7 @@ class FOFModel extends FOFUtilsObject
 		}
 		catch (Exception $e)
 		{
-			// Oops, an exception occurred!
+			// Oops, an exception occured!
 			$this->setError($e->getMessage());
 
 			return false;
@@ -3229,9 +3227,9 @@ class FOFModel extends FOFUtilsObject
 	}
 
 	/**
-	 * Set or get the blacklisted filters
+	 * Set or get the backlisted filters
 	 *
-	 * @param   mixed    $list    A filter or list of filters to blacklist. If null return the list of blacklisted filter
+	 * @param   mixed    $list    A filter or list of filters to backlist. If null return the list of backlisted filter
 	 * @param   boolean  $reset   Reset the blacklist if true
 	 *
 	 * @return  void|array  Return an array of value if $list is null

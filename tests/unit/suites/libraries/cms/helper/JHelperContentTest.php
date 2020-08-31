@@ -8,7 +8,7 @@
  */
 
 /**
- * Test class for JHelperContent.
+ * Test class for JHelperCOntent.
  *
  * @package     Joomla.UnitTest
  * @subpackage  Helper

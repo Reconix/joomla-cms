@@ -565,7 +565,7 @@ class ContentModelArticles extends JModelList
 	/**
 	 * Method to get a list of articles.
 	 *
-	 * Overridden to inject convert the attribs field into a JParameter object.
+	 * Overriden to inject convert the attribs field into a JParameter object.
 	 *
 	 * @return  mixed  An array of objects on success, false on failure.
 	 *

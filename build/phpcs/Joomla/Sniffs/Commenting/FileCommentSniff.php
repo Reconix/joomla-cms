@@ -392,7 +392,7 @@ class Joomla_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_Sniff
             $foundIndexes = array_keys($foundTags, $tag);
 
             if (count($foundIndexes) > 1) {
-                // Multiple occurrence not allowed.
+                // Multiple occurance not allowed.
                 if ($info['allow_multiple'] === false) {
                     $error = 'Only 1 @%s tag is allowed in a %s comment';
                     $data  = array(

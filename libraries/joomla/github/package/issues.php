@@ -104,7 +104,7 @@ class JGithubPackageIssues extends JGithubPackage
 		// Build the request path.
 		$path = '/repos/' . $user . '/' . $repo . '/issues/' . (int) $issueId;
 
-		// Create the data object.
+		// Craete the data object.
 		$data = new stdClass;
 
 		// If a title is set add it to the data object.

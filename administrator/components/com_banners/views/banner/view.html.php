@@ -48,7 +48,7 @@ class BannersViewBanner extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		// Initialize variables.
+		// Initialiase variables.
 		$this->form  = $this->get('Form');
 		$this->item  = $this->get('Item');
 		$this->state = $this->get('State');

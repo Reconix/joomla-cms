@@ -79,7 +79,7 @@ class JApplicationCliTest extends TestCase
 	}
 
 	/**
-	 * Tests the JApplicationCli::__construct method with dependency injection.
+	 * Tests the JApplicationCli::__construct method with dependancy injection.
 	 *
 	 * @return  void
 	 *

@@ -223,7 +223,7 @@ class PlgTwofactorauthTotp extends JPlugin
 			return false;
 		}
 
-		// Check succeeded; return an OTP configuration object
+		// Check succeedeed; return an OTP configuration object
 		$otpConfig = (object) array(
 			'method'   => 'totp',
 			'config'   => array(
