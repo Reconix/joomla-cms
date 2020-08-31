@@ -37,7 +37,6 @@
 			description="COM_MEDIA_FIELD_PATH_FILE_FOLDER_DESC" 
 			size="50"
 			default="images"
-			validate="filePath"
 		/>
 
 		<field
@@ -47,7 +46,6 @@
 			description="COM_MEDIA_FIELD_PATH_IMAGE_FOLDER_DESC"
 			size="50"
 			default="images"
-			validate="filePath"
 		/>
 
 		<field
