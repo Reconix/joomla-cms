@@ -273,8 +273,6 @@ class JoomlaupdateControllerUpdate extends JControllerLegacy
 		{
 			$url = 'index.php?option=com_joomlaupdate';
 			$this->setRedirect($url, $e->getMessage(), 'error');
-
-			return;
 		}
 
 		$token = JSession::getFormToken();
