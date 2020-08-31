@@ -79,9 +79,9 @@ defined('_JEXEC') or die;
 			</div>
 		<?php endif; ?>
 		<!-- Show Image -->
-		<?php if ($this->rssDoc->image && $this->params->get('show_feed_image')) : ?>
+		<?php if (isset($this->rssDoc->image, $this->rssDoc->imagetitle) && $this->params->get('show_feed_image')) : ?>
 			<div>
-				<img src="<?php echo $this->rssDoc->image->uri; ?>" alt="<?php echo $this->rssDoc->image->title; ?>" />
+				<img src="<?php echo $this->rssDoc->image; ?>" alt="<?php echo $this->rssDoc->image->decription; ?>" />
 			</div>
 		<?php endif; ?>
 		<!-- Show items -->
