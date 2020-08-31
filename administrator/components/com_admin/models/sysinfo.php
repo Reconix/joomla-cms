@@ -278,11 +278,7 @@ class AdminModelSysInfo extends JModelLegacy
 
 		$registry = new Registry(new JConfig);
 		$this->config = $registry->toArray();
-		$hidden = array(
-			'host', 'user', 'password', 'ftp_user', 'ftp_pass',
-			'smtpuser', 'smtppass', 'redis_server_auth', 'session_redis_server_auth',
-			'proxy_user', 'proxy_pass', 'secret'
-		);
+		$hidden = array('host', 'user', 'password', 'ftp_user', 'ftp_pass', 'smtpuser', 'smtppass',);
 
 		foreach ($hidden as $key)
 		{
