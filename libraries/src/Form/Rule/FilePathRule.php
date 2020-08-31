@@ -54,7 +54,7 @@ class FilePathRule extends FormRule
 
 		try
 		{
-			Path::check($value);
+			$path = Path::check($value);
 		}
 		catch (\Exception $e)
 		{
