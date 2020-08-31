@@ -12,7 +12,6 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Component\Router\RouterBase;
 use Joomla\CMS\Component\Router\RouterInterface;
 use Joomla\CMS\Component\Router\RouterLegacy;
 use Joomla\String\StringHelper;
@@ -478,12 +477,9 @@ class SiteRouter extends Router
 
 		$component = preg_replace('/[^A-Z0-9_\.-]/i', '', $query['option']);
 		$crouter   = $this->getComponentRouter($component);
+		$query     = $crouter->preprocess($query);
 
-		if ($crouter instanceof RouterBase === false)
-		{
-			$query = $crouter->preprocess($query);
-			$uri->setQuery($query);
-		}
+		$uri->setQuery($query);
 	}
 
 	/**
