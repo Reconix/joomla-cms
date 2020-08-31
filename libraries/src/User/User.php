@@ -98,7 +98,7 @@ class User extends \JObject
 	/**
 	 * Date the user was registered
 	 *
-	 * @var    string
+	 * @var    \DateTime
 	 * @since  1.7.0
 	 */
 	public $registerDate = null;
@@ -106,7 +106,7 @@ class User extends \JObject
 	/**
 	 * Date of last visit
 	 *
-	 * @var    string
+	 * @var    \DateTime
 	 * @since  1.7.0
 	 */
 	public $lastvisitDate = null;
