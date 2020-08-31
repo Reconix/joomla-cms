@@ -46,7 +46,7 @@ class UsersControllerMail extends JControllerLegacy
 		}
 
 		$msg = $model->getError();
-		$this->setRedirect('index.php?option=com_users&view=mail', $msg, $type);
+		$this->setredirect('index.php?option=com_users&view=mail', $msg, $type);
 	}
 
 	/**
@@ -60,10 +60,6 @@ class UsersControllerMail extends JControllerLegacy
 	{
 		// Check for request forgeries.
 		$this->checkToken('request');
-
-		// Clear data from session.
-		\JFactory::getApplication()->setUserState('com_users.display.mail.data', null);
-
 		$this->setRedirect('index.php');
 	}
 }
