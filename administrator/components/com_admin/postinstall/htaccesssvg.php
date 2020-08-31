@@ -19,7 +19,7 @@ defined('_JEXEC') or die;
  *
  * @return  boolean
  *
- * @since   3.9.21
+ * @since   __DEPLOY_VERSION__
  */
 function admin_postinstall_htaccesssvg_condition()
 {
